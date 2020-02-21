@@ -1,0 +1,81 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <form [formGroup]="postSaveForm" (ngSubmit)="savePost()">
+        <h2 class="text-center">Create Post</h2>
+        <hr />
+        <div class="form-group">
+          <label for="title">Title<span style="color: red;">*</span></label>
+          <input
+            type="text"
+            [ngClass]="{
+              'is-invalid':
+                postSaveForm.get('title').errors &&
+                postSaveForm.get('title').touched
+            }"
+            class="form-control"
+            formControlName="title"
+            placeholder="Title"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              postSaveForm.get('title').touched &&
+              postSaveForm.get('title').hasError('required')
+            "
+          >
+            Please enter title
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description"
+            >Description<span style="color: red;">*</span></label
+          >
+          <textarea
+            [ngClass]="{
+              'is-invalid':
+                postSaveForm.get('description').errors &&
+                postSaveForm.get('description').touched
+            }"
+            class="form-control"
+            rows="4"
+            formControlName="description"
+            placeholder="Description"
+          ></textarea>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              postSaveForm.get('description').touched &&
+              postSaveForm.get('description').hasError('required')
+            "
+          >
+            Please enter description
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="imageFile">Image<span style="color: red;">*</span></label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="imageFile"
+            formControlName="imageFile"
+            value=""
+            (change)="onSelectFile($event.target.files)"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              postSaveForm.get('imageFile').touched &&
+              postSaveForm.get('imageFile').hasError('required')
+            "
+          >
+            Please select an image
+          </div>
+
+        </div>
+
+        <button type="submit" [disabled]="!postSaveForm.valid" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

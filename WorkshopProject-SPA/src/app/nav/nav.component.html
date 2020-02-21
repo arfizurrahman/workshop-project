@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">MyApp</a>
+      <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/posts']">Posts</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/post-add']">Create Post</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/my-posts']">My Posts</a>
+        </li>
+      </ul>
+
+      <div *ngIf="loggedIn()" class="nav-item dropdown" dropdown >
+        <a class="nav-link dropdown-toggle text-white" dropdownToggle >
+          Welcome {{ authService.decodedToken.unique_name | titlecase }}
+        </a>
+        <div class="dropdown-menu mt-2" *dropdownMenu>
+          <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+        </div>
+      </div>
+      <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
+        <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" required [(ngModel)]="model.username" #username="ngModel">
+        <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password" required [(ngModel)]="model.password" #password="ngModel">
+        <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+      </form>
+    </div>
+  </nav>
+<!--<pre>
+      Form Valid: {{ loginForm.valid }}
+      Form Touched: {{ loginForm.touched }}
+      Form Dirty: {{ loginForm.dirty }}
+      Form Values: {{ loginForm.value | json }}
+      Username Valid: {{ username.valid }}
+      Username Touched: {{ username.touched }}
+      Username Dirty: {{ username.dirty }}
+      Username Values: {{ username.value }}
+      Password Valid: {{ password.valid }}
+      Password Touched: {{ password.touched }}
+      Password Dirty: {{ password.dirty }}
+      Password Values: {{ password.value }}
+  </pre> -->

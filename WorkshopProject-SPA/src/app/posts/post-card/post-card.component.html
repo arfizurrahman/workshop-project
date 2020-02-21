@@ -1,0 +1,30 @@
+<div class="card" style="min-height: 415px">
+  <img
+    class="card-img-top"
+    style="height: 200px;"
+    src="data:image/gif;base64,{{ post.imageUrl }}"
+    alt="{{ post.title }}"
+  />
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+        <p class="card-text">{{ post.userName }}</p>
+        <p style="font-style: italic;" class="card-text">{{ post.createdOn | timeAgo }}</p>
+      </div>
+    <h5 class="card-title">{{ post.title }}</h5>
+    <p class="card-text">{{ post.description }}</p>
+    <!-- <a href="#" class="btn btn-primary">Details</a>
+      <a href="#" class="btn btn-primary ml-1">Edit</a> -->
+    <a
+      [routerLink]="['/post-details/', post.id]"
+      href="javascript:void(0)"
+      class="card-link"
+      >Details</a
+    >
+    <a *ngIf="authService.decodedToken.nameid == post.userId"
+      [routerLink]="['/post-edit/', post.id]"
+      href="javascript:void(0)"
+      class="card-link"
+      >Edit</a
+    >
+  </div>
+</div>
